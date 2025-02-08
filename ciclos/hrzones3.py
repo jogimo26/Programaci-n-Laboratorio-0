@@ -44,6 +44,7 @@ amountfatburning = trainingzoneslist.count("Fat Burning")
 amountaerobic = trainingzoneslist.count("Aerobic")
 amountanaerobic = trainingzoneslist.count("Anaerobic")
 amountmaximumper = trainingzoneslist.count("Maximum Performance")
+amountinvalid = trainingzoneslist.count("Invalid")
 
 # For the % of times that a certain zone appears inside the list
 sumsessions = amountrecovery + amountfatburning + amountaerobic + amountanaerobic + amountmaximumper
@@ -75,9 +76,13 @@ if amountmaximumper == 0:
 elif amountmaximumper != 0:
     maximumpercentage = amountmaximumper/sumsessions * 100
 
+if amountinvalid == 0:
+    invalidpercentage = 0
+elif amountinvalid != 0:
+    invalidpercentage = amountinvalid/sumsessions * 100
 
 # Display the results to the user
-print(f"\nOn a percentual basis your trainings were on these zones:\nRecovery Zone: {recoverypercentage}%\nFat Burning Zone: {fatburningpercentage}%\nAerobic Zone: {aerobicpercentage}%\nAnaerobic Zone: {anaerobicpercentage}%\nMaximum Performance Zone: {maximumpercentage}%\n")
+print(f"\nOn a percentual basis your trainings were on these zones:\nRecovery Zone: {recoverypercentage}%\nFat Burning Zone: {fatburningpercentage}%\nAerobic Zone: {aerobicpercentage}%\nAnaerobic Zone: {anaerobicpercentage}%\nMaximum Performance Zone: {maximumpercentage}%\nInvalid Inputs: {invalidpercentage}")
 
 # Give the training zone the training was done in to the user
 # print(f'Your training was done in the {trainingzones(age,MaxHR(age))} training zone')
