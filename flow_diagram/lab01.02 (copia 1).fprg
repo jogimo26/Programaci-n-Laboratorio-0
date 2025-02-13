@@ -1,0 +1,176 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="lab01.01"/>
+        <attribute name="authors" value="juand"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2025-02-13 12:34:30 a.&#8239;m."/>
+        <attribute name="created" value="anVhbmQ7SlVBTi1EQVZJRC1QQzsyMDI1LTAyLTA5OzA0OjUwOjUyIFBNOzI3MDk="/>
+        <attribute name="edited" value="anVhbmQ7SlVBTi1EQVZJRC1QQzsyMDI1LTAyLTEyOzA4OjQ3OjE3IFBNOzEyOzI4NzI="/>
+        <attribute name="edited" value="ZmFiaWFuO0ZBQklBTi0xOC01MDExTDsyMDI1LTAyLTEzOzEyOjM0OjMwIGEu4oCvbS47NDsxMTI1OQ=="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <comment text="Function to compute maximum heart rate"/>
+            <declare name="Age" type="Integer" array="False" size=""/>
+            <declare name="i" type="Integer" array="False" size=""/>
+            <declare name="trainingno" type="Integer" array="False" size=""/>
+            <declare name="Maxhr" type="Real" array="False" size=""/>
+            <declare name="sumsessions" type="Integer" array="False" size=""/>
+            <declare name="amountrecovery" type="Integer" array="False" size=""/>
+            <declare name="amountfatburning" type="Integer" array="False" size=""/>
+            <declare name="amountaerobic" type="Integer" array="False" size=""/>
+            <declare name="amountanaerobic" type="Integer" array="False" size=""/>
+            <declare name="amountmaximumper" type="Integer" array="False" size=""/>
+            <declare name="amountinvalid" type="Integer" array="False" size=""/>
+            <declare name="recoverypercentage" type="Real" array="False" size=""/>
+            <declare name="fatburningpercentage" type="Real" array="False" size=""/>
+            <declare name="aerobicpercentage" type="Real" array="False" size=""/>
+            <declare name="anaerobicpercentage" type="Real" array="False" size=""/>
+            <declare name="maximumpercentage" type="Real" array="False" size=""/>
+            <declare name="invalidpercentage" type="Real" array="False" size=""/>
+            <declare name="traininghr" type="Real" array="False" size=""/>
+            <assign variable="amountrecovery" expression="0"/>
+            <assign variable="amountfatburning" expression="0"/>
+            <assign variable="amountaerobic" expression="0"/>
+            <assign variable="amountanaerobic" expression="0"/>
+            <assign variable="amountmaximumper" expression="0"/>
+            <assign variable="amountinvalid" expression="0"/>
+            <comment text="Ask user for age"/>
+            <output expression="&quot;Enter your age&quot;" newline="True"/>
+            <input variable="Age"/>
+            <comment text="Print estimation of maximum heart rate based on age"/>
+            <output expression="&quot;Your max Your max heart rate is &quot; &amp;Maxhr(Age) &amp;&quot;bpm&quot;" newline="True"/>
+            <assign variable="Maxhr" expression="Maxhr(Age)"/>
+            <output expression="&quot;How many training sessions did you have in total? &quot;" newline="True"/>
+            <input variable="trainingno"/>
+            <for variable="i" start="1" end="trainingno" direction="inc" step="1">
+                <declare name="zone" type="String" array="False" size=""/>
+                <output expression="&quot;What was the heart rate achieved during the &quot; &amp;(i)&amp; &quot; training session?:&quot;" newline="True"/>
+                <output expression="&quot;The training zone achieved during training &quot; &amp;(i)&amp;&quot; was &quot; &amp;TrainingZone(Maxhr(Age))" newline="True"/>
+                <output expression="&quot;ok, please repeat the heart rate you set before to be able to analyze it : &quot;" newline="True"/>
+                <comment text=""/>
+                <assign variable="zone" expression="TrainingZone(Maxhr)"/>
+                <comment text=""/>
+                <if expression="zone == &quot;Recovery&quot;">
+                    <then>
+                        <assign variable="amountrecovery" expression="amountrecovery+1"/>
+                    </then>
+                    <else>
+                        <if expression="zone == &quot;Fat Burning&quot;">
+                            <then>
+                                <assign variable="amountfatburning" expression="amountfatburning+1"/>
+                            </then>
+                            <else>
+                                <if expression="zone == &quot;Aerobic&quot;">
+                                    <then>
+                                        <assign variable="amountaerobic" expression="amountaerobic+1"/>
+                                    </then>
+                                    <else>
+                                        <if expression="zone == &quot;Anaerobic&quot;">
+                                            <then>
+                                                <assign variable="amountanaerobic" expression="amountanaerobic+1"/>
+                                            </then>
+                                            <else>
+                                                <if expression="zone == &quot;Maximum Performance&quot;">
+                                                    <then>
+                                                        <assign variable="amountmaximumper" expression="amountmaximumper+1"/>
+                                                    </then>
+                                                    <else>
+                                                        <assign variable="amountinvalid" expression="amountinvalid+1"/>
+                                                    </else>
+                                                </if>
+                                            </else>
+                                        </if>
+                                    </else>
+                                </if>
+                            </else>
+                        </if>
+                    </else>
+                </if>
+            </for>
+            <assign variable="sumsessions" expression="amountrecovery+amountfatburning+amountaerobic+amountanaerobic+amountmaximumper"/>
+            <if expression="sumsessions &gt; 0">
+                <then>
+                    <assign variable="recoverypercentage" expression="(amountrecovery / sumsessions) * 100"/>
+                    <assign variable="fatburningpercentage" expression="(amountfatburning / sumsessions) * 100"/>
+                    <assign variable="aerobicpercentage" expression="(amountaerobic / sumsessions) * 100"/>
+                    <assign variable="anaerobicpercentage" expression="(amountanaerobic / sumsessions) * 100"/>
+                    <assign variable="maximumpercentage" expression="(amountmaximumper / sumsessions) * 100"/>
+                    <assign variable="invalidpercentage" expression="(amountinvalid / trainingno) * 100"/>
+                </then>
+                <else>
+                    <assign variable="recoverypercentage" expression="0"/>
+                    <assign variable="fatburningpercentage" expression="0"/>
+                    <assign variable="aerobicpercentage" expression="0"/>
+                    <assign variable="anaerobicpercentage" expression="0"/>
+                    <assign variable="maximumpercentage" expression="0"/>
+                    <assign variable="invalidpercentage" expression="0"/>
+                </else>
+            </if>
+            <output expression="&quot; On a percentual basis your trainings were on these zones: &quot;" newline="True"/>
+            <output expression="&quot;Recovery Zone: &quot;&amp;recoverypercentage&amp;&quot;%&quot;" newline="True"/>
+            <output expression="&quot;Fat Burnig Zone: &quot;&amp;fatburningpercentage&amp;&quot;%&quot;" newline="True"/>
+            <output expression="&quot;Aerobic Zone: &quot;&amp;aerobicpercentage&amp;&quot;%&quot;" newline="True"/>
+            <output expression="&quot;Anaerobic Zone: &quot;&amp;anaerobicpercentage&amp;&quot;%&quot;" newline="True"/>
+            <output expression="&quot;Maximum Performance Zone: &quot;&amp;maximumpercentage&amp;&quot;%&quot;" newline="True"/>
+            <output expression="&quot;Invalid Inputs: &quot;&amp;invalidpercentage&amp;&quot;%&quot;" newline="True"/>
+        </body>
+    </function>
+    <function name="Maxhr" type="Real" variable="Maxhr">
+        <parameters>
+            <parameter name="Age" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="Maxhr" type="Real" array="False" size=""/>
+            <assign variable="Maxhr" expression="208-0.7*Age"/>
+        </body>
+    </function>
+    <function name="TrainingZone" type="String" variable="TrainingZone">
+        <parameters>
+            <parameter name="Maxhr" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <declare name="TrainingZone" type="String" array="False" size=""/>
+            <declare name="traininghr" type="Real" array="False" size=""/>
+            <input variable="traininghr"/>
+            <if expression="traininghr &gt;= Maxhr*0.5 and traininghr &lt; Maxhr*0.6">
+                <then>
+                    <assign variable="TrainingZone" expression="&quot;Recovery&quot;"/>
+                </then>
+                <else>
+                    <if expression="traininghr &gt;= Maxhr*0.6 and traininghr &lt; Maxhr*0.7">
+                        <then>
+                            <assign variable="TrainingZone" expression="&quot;Fat Burning&quot;"/>
+                        </then>
+                        <else>
+                            <if expression="traininghr &gt;= Maxhr*0.7 and traininghr &lt; Maxhr*0.8">
+                                <then>
+                                    <assign variable="TrainingZone" expression="&quot;Aerobic&quot;"/>
+                                </then>
+                                <else>
+                                    <if expression="traininghr &gt;= Maxhr*0.8 and traininghr &lt; Maxhr*0.9">
+                                        <then>
+                                            <assign variable="TrainingZone" expression="&quot;Anaerobic&quot;"/>
+                                        </then>
+                                        <else>
+                                            <if expression="traininghr &gt;= Maxhr*0.9 and traininghr &lt;= Maxhr">
+                                                <then>
+                                                    <assign variable="TrainingZone" expression="&quot;Maximum Performance&quot;"/>
+                                                </then>
+                                                <else>
+                                                    <assign variable="TrainingZone" expression="&quot;Invalid Input&quot;"/>
+                                                </else>
+                                            </if>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+</flowgorithm>
