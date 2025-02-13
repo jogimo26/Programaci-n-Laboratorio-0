@@ -22,7 +22,7 @@ def trainingzones(hr,MaxHR):
 def z2hrboundaries(MaxHR):
     lowerboundary = MaxHR*0.6
     upperboundary = MaxHR*0.7
-    print(f'For training on Zone 2 (Fat burning), keep your heartrate between {limitebajo} bpm and {limitealto} bpm.')
+    print(f'For training on Zone 2 (Fat burning), keep your heartrate between {lowerboundary} bpm and {upperboundary} bpm.')
         
 
 # Ask user for their age
