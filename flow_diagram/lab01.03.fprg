@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <attributes>
+        <attribute name="name" value="lab01.01"/>
+        <attribute name="authors" value="juand"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2025-02-13 05:47:36 PM"/>
+        <attribute name="created" value="anVhbmQ7SlVBTi1EQVZJRC1QQzsyMDI1LTAyLTA5OzA0OjUwOjUyIFBNOzI3MDk="/>
+        <attribute name="edited" value="anVhbmQ7SlVBTi1EQVZJRC1QQzsyMDI1LTAyLTEzOzA1OjQ3OjM2IFBNOzEwOzI4Njk="/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <comment text="Function to compute maximum heart rate"/>
+            <declare name="Age" type="Integer" array="False" size=""/>
+            <declare name="Maxhr" type="Real" array="False" size=""/>
+            <declare name="hr" type="Real" array="False" size=""/>
+            <declare name="trainingzones" type="Integer" array="False" size=""/>
+            <comment text="Ask user for age"/>
+            <output expression="&quot;Enter your age&quot;" newline="True"/>
+            <input variable="Age"/>
+            <comment text="Print estimation of maximum heart rate based on age"/>
+            <output expression="&quot;Your max Your max heart rate is &quot; &amp;Maxhr(Age) &amp;&quot;bpm&quot;" newline="True"/>
+            <comment text="Give the training zone the training was done in to the user"/>
+            <output expression="&quot;Your training was done in the &quot; &amp;TrainingZone(Age, Maxhr (Age))&amp;&quot; Training Zone&quot;" newline="True"/>
+            <call expression="z2hrboundaries(Maxhr(Age))"/>
+        </body>
+    </function>
+    <function name="Maxhr" type="Real" variable="Maxhr">
+        <parameters>
+            <parameter name="Age" type="Integer" array="False"/>
+        </parameters>
+        <body>
+            <declare name="Maxhr" type="Real" array="False" size=""/>
+            <assign variable="Maxhr" expression="208-0.7*Age"/>
+        </body>
+    </function>
+    <function name="TrainingZone" type="String" variable="TrainingZone">
+        <parameters>
+            <parameter name="Age" type="Integer" array="False"/>
+            <parameter name="maxhr" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <declare name="hr" type="Real" array="False" size=""/>
+            <declare name="TrainingZone" type="String" array="False" size=""/>
+            <output expression="&quot;What heart rate did you achieve on your training?&quot;" newline="True"/>
+            <input variable="hr"/>
+            <if expression="hr &gt;= Maxhr*0.5 and hr &lt; Maxhr*0.6">
+                <then>
+                    <assign variable="TrainingZone" expression="&quot;Recovery&quot;"/>
+                </then>
+                <else>
+                    <if expression="hr &gt;= Maxhr*0.6 and hr &lt; Maxhr*0.7">
+                        <then>
+                            <assign variable="TrainingZone" expression="&quot;Fat Burning&quot;"/>
+                        </then>
+                        <else>
+                            <if expression="hr &gt;= Maxhr*0.7 and hr &lt; Maxhr*0.8">
+                                <then>
+                                    <assign variable="TrainingZone" expression="&quot;Aerobic&quot;"/>
+                                </then>
+                                <else>
+                                    <if expression="hr &gt;= Maxhr*0.8 and hr &lt; Maxhr*0.9">
+                                        <then>
+                                            <assign variable="TrainingZone" expression="&quot;Anaerobic&quot;"/>
+                                        </then>
+                                        <else>
+                                            <if expression="hr &gt;= Maxhr*0.9 and hr &lt;= Maxhr">
+                                                <then>
+                                                    <assign variable="TrainingZone" expression="&quot;Maximum Performance&quot;"/>
+                                                </then>
+                                                <else>
+                                                    <assign variable="TrainingZone" expression="&quot;Invalid Input&quot;"/>
+                                                </else>
+                                            </if>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                        </else>
+                    </if>
+                </else>
+            </if>
+        </body>
+    </function>
+    <function name="z2hrboundaries" type="None" variable="">
+        <parameters>
+            <parameter name="Maxhr" type="Real" array="False"/>
+        </parameters>
+        <body>
+            <declare name="lowerboundary" type="Real" array="False" size=""/>
+            <declare name="upperboundary" type="Real" array="False" size=""/>
+            <assign variable="lowerboundary" expression="Maxhr * 0.60"/>
+            <assign variable="upperboundary" expression="Maxhr * 0.70"/>
+            <output expression="&quot;For training on Zone 2 (Fat burning), keep your heartrate between &quot; &amp;lowerboundary&amp; &quot; bpm and &quot; &amp;upperboundary&amp; &quot; bpm.&quot;" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>
